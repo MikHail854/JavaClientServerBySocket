@@ -12,10 +12,11 @@ public class Server {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client accepted " + (++count));
             OutputStreamWriter writer = new OutputStreamWriter(clientSocket.getOutputStream());
-            writer.write("HTTP/1.0 200 OK\n + " +
+            /*writer.write("HTTP/1.0 200 OK\n + " +
                     "Content-type: text/html\n" +
                     "\n" +
-                    "<h1>Hello JAVA " + count + "</h1>\n");
+                    "<h1>Hello JAVA " + count + "</h1>\n");*/
+            writer.write("You are client #" + count + "\n");
             writer.flush();
             writer.close();
 
