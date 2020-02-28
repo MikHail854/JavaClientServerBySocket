@@ -11,15 +11,23 @@ public class Server {
         while (true){
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client accepted " + (++count));
-            OutputStreamWriter writer = new OutputStreamWriter(clientSocket.getOutputStream());
-            /*writer.write("HTTP/1.0 200 OK\n + " +
-                    "Content-type: text/html\n" +
-                    "\n" +
-                    "<h1>Hello JAVA " + count + "</h1>\n");*/
-            writer.write("You are client #" + count + "\n");
+
+            OutputStreamWriter writer =
+                    new OutputStreamWriter(clientSocket.getOutputStream());
+
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(
+                            clientSocket.getInputStream()));
+
+            String request = reader.readLine();
+            String response =  "#"  + count +
+                    ", your message length if " +
+                    request.length() + "\n";
+
+            writer.write(response);
             writer.flush();
             writer.close();
-
+            reader.close();
             clientSocket.close();
         }
         //serverSocket.close();
